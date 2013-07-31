@@ -102,7 +102,7 @@ module SalesforceBulk
       end
     end
 
-    def get_batch_result()
+    def get_batch_result(as_array=false)
       path = "job/#{@@job_id}/batch/#{@@batch_id}/result"
       headers = Hash["Content-Type" => "text/xml; charset=UTF-8"]
 
@@ -122,7 +122,7 @@ module SalesforceBulk
 
       parse_results response
 
-      response = response.lines.to_a[1..-1].join
+      as_array ? response.lines.to_a[1..-1] : response.lines.to_a[1..-1].join
       # csvRows = CSV.parse(response, :headers => true)
     end
 
